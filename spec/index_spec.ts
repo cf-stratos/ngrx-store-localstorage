@@ -2,6 +2,7 @@ declare var it, describe, expect;
 require('es6-shim');
 import { syncStateUpdate, rehydrateApplicationState, dateReviver, localStorageSync } from '../src/index';
 import *  as CryptoJS from 'crypto-js';
+import { storeFreeze } from 'ngrx-store-freeze';
 import 'localstorage-polyfill';
 const INIT_ACTION = '@ngrx/store/init';
 
@@ -430,7 +431,7 @@ describe('ngrxLocalStorage', () => {
         const action = {type: INIT_ACTION};
 
         // Resultant state should merge the oldstring state and our initual state
-        const finalState = metaReducer(reducer)(initialState, action);
+        const finalState = storeFreeze(metaReducer(reducer))(initialState, action);
         expect(finalState.state.astring).toEqual(initialState.state.astring);
     });
 });
