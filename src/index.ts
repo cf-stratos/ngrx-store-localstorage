@@ -249,7 +249,7 @@ export const localStorageSync = (config: LocalStorageConfig) => (
       if (state) {
         Object.keys(state).forEach(function (key) {
           if (state[key] instanceof Array && rehydratedState[key] instanceof Array) {
-              state[key] = rehydratedState[key];
+              state = {...state, key: rehydratedState[key]};
           } else if (typeof state[key] === 'object'
               && typeof rehydratedState[key] === 'object') {
               state[key] = Object.assign({}, state[key], rehydratedState[key]);
