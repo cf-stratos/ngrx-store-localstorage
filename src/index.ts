@@ -252,7 +252,8 @@ export const localStorageSync = (config: LocalStorageConfig) => (
               state = {...state, [key]: rehydratedState[key]};
           } else if (typeof state[key] === 'object'
               && typeof rehydratedState[key] === 'object') {
-              state[key] = Object.assign({}, state[key], rehydratedState[key]);
+              const slice = Object.assign({}, state[key], rehydratedState[key]);
+              state = {...state, key: slice};
           } else {
               state[key] = rehydratedState[key];
           }
